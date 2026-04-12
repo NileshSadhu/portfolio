@@ -8,7 +8,7 @@ const projects = [
       "Personal portfolio built with React, Tailwind CSS and Vite. Features smooth animations, command menu, and a Pikachu cursor easter egg.",
     tags: ["React", "Tailwind", "Vite"],
     github: "https://github.com/NileshSadhu/Portfolio",
-    live: "https://nileshsadhu.com",
+    live: "https://nileshsadhu.in",
     featured: true,
   },
   {
