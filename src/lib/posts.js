@@ -4,6 +4,9 @@ const modules = import.meta.glob("../content/*.md", {
     import: "default",
 });
 
+console.log("glob keys:", Object.keys(modules));
+console.log("modules:", modules);
+
 const parseFrontmatter = (raw) => {
     const normalized = raw.replace(/\r\n/g, "\n").replace(/\r/g, "\n").trim();
 
