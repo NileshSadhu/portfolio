@@ -4,41 +4,6 @@ const modules = import.meta.glob("../content/*.md", {
     import: "default",
 });
 
-// const parseFrontmatter = (raw) => {
-//     const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-//     if (!match) return { data: {}, content: raw };
-
-//     const frontmatter = match[1];
-//     const content = match[2].trim();
-
-//     const data = {};
-//     frontmatter.split("\n").forEach((line) => {
-//         const colonIdx = line.indexOf(":");
-//         if (colonIdx === -1) return;
-
-//         const key = line.slice(0, colonIdx).trim();
-//         let value = line.slice(colonIdx + 1).trim();
-
-//         // strip surrounding quotes
-//         if ((value.startsWith('"') && value.endsWith('"')) ||
-//             (value.startsWith("'") && value.endsWith("'"))) {
-//             value = value.slice(1, -1);
-//         }
-
-//         // parse arrays like ["tag1", "tag2"]
-//         if (value.startsWith("[") && value.endsWith("]")) {
-//             value = value
-//                 .slice(1, -1)
-//                 .split(",")
-//                 .map((v) => v.trim().replace(/^["']|["']$/g, ""));
-//         }
-
-//         data[key] = value;
-//     });
-
-//     return { data, content };
-// };
-
 const parseFrontmatter = (raw) => {
     const normalized = raw.replace(/\r\n/g, "\n").replace(/\r/g, "\n").trim();
 
