@@ -1,22 +1,42 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const navItems = [
-  { label: "Home", href: "#home" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Blog", href: "#blog" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "home" },
+  { label: "Skills", href: "skills" },
+  { label: "Projects", href: "projects" },
+  { label: "Contact", href: "contact" },
+  { label: "Blog", href: "blog" },
 ];
 
 export const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const handleClick = (item) => {
+    setActive(item.label);
+    if (location.pathname !== "/") {
+      // navigate home first, then scroll to section
+      navigate("/");
+      setTimeout(() => {
+        document
+          .getElementById(item.href)
+          ?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } else {
+      document
+        .getElementById(item.href)
+        ?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center px-6 pt-5">
@@ -35,10 +55,9 @@ export const Navbar = () => {
         {navItems.map(({ label, href }) => {
           const isActive = active === label;
           return (
-            <a
+            <button
               key={label}
-              href={href}
-              onClick={() => setActive(label)}
+              onClick={() => handleClick({ label, href })}
               className="relative px-4 py-1.5 text-sm rounded-xl transition-colors duration-200"
               style={{
                 color: isActive ? "#ffffff" : "#71717a",
@@ -50,7 +69,7 @@ export const Navbar = () => {
               {isActive && (
                 <span className="absolute bottom-1 left-1/2 -translate-x-1/2 h-px w-4 rounded-full bg-white opacity-40" />
               )}
-            </a>
+            </button>
           );
         })}
       </div>
