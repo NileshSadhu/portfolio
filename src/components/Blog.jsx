@@ -1,18 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiArrowRight } from "react-icons/fi";
-
-export const posts = [
-  {
-    slug: "why-i-love-typescript",
-    title: "Why I love TypeScript",
-    date: "Mar 28, 2025",
-    readTime: "4 min read",
-    excerpt:
-      "TypeScript changed how I think about code. Here's why every JavaScript developer should give it a serious shot.",
-    tags: ["TypeScript", "JavaScript"],
-  },
-];
+import { getAllPosts } from "../lib/posts";
 
 const PostCard = ({ post, index, visible }) => {
   const navigate = useNavigate();
@@ -41,7 +30,7 @@ const PostCard = ({ post, index, visible }) => {
 
       <div>
         <h3
-          className="text-white font-medium text-base mb-2 transition-colors duration-200"
+          className="font-medium text-base mb-2 transition-colors duration-200"
           style={{ color: hovered ? "#fff" : "#e4e4e7" }}
         >
           {post.title}
@@ -74,7 +63,18 @@ const PostCard = ({ post, index, visible }) => {
 export const Blog = () => {
   const [visible, setVisible] = useState(false);
   const [headerVisible, setHeaderVisible] = useState(false);
+  const [posts, setPosts] = useState([]);
   const sectionRef = useRef(null);
+
+  useEffect(() => {
+    setPosts(getAllPosts());
+  }, []);
+
+  useEffect(() => {
+    const p = getAllPosts();
+    console.log("posts:", p);
+    setPosts(p);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
