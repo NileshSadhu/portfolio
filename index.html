@@ -31,6 +31,46 @@
 </head>
 
 <body>
+  <noscript>
+    <style>
+      body {
+        margin: 0;
+        background: #09090b;
+        display: flex;
+        min-height: 100vh;
+        align-items: center;
+        justify-content: center;
+        font-family: sans-serif;
+      }
+
+      .ns {
+        text-align: center;
+        padding: 2rem;
+      }
+
+      .ns h1 {
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+      }
+
+      .ns p {
+        color: #71717a;
+        font-size: 0.875rem;
+        line-height: 1.6;
+      }
+
+      .ns a {
+        color: #a1a1aa;
+      }
+    </style>
+    <div class="ns">
+      <h1>JavaScript is required.</h1>
+      <p>This site is built with React and needs JavaScript to run.<br />
+        Please enable it in your browser settings and refresh the page.</p>
+    </div>
+  </noscript>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

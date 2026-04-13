@@ -21,10 +21,42 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (location.pathname !== "/") return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const matched = navItems.find(
+              (item) => item.href === entry.target.id,
+            );
+            if (matched) setActive(matched.label);
+          }
+        });
+      },
+      {
+        rootMargin: "-40% 0px -55% 0px",
+        threshold: 0,
+      },
+    );
+
+    navItems.forEach(({ href }) => {
+      const el = document.getElementById(href);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [location.pathname]);
+
+  // set active to nothing when on blog post page
+  useEffect(() => {
+    if (location.pathname.startsWith("/blog/")) setActive("Blog");
+  }, [location.pathname]);
+
   const handleClick = (item) => {
     setActive(item.label);
     if (location.pathname !== "/") {
-      // navigate home first, then scroll to section
       navigate("/");
       setTimeout(() => {
         document

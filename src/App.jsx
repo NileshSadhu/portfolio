@@ -10,6 +10,9 @@ import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { BlogPost } from "./components/BlogPost";
 
+import { NotFound } from "./pages/NotFound";
+import { JavaScriptRequired } from "./pages/JavaScriptRequired";
+
 const Home = () => (
   <>
     <section id="home">
@@ -39,6 +42,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </BrowserRouter>
