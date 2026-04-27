@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const navItems = [
   { label: "Home", href: "home" },
+  { label: "Experience", href: "experience" },
   { label: "Skills", href: "skills" },
   { label: "Projects", href: "projects" },
   { label: "Blog", href: "blog" },

@@ -109,7 +109,7 @@ export const Hero = () => {
             style={fadeUp(400)}
           >
             <a
-              href="/resume.pdf"
+              href="/nileshResume.pdf"
               download
               className="flex items-center gap-2 text-sm font-medium text-white bg-neutral-800 border border-neutral-700 rounded-xl px-5 py-2.5 hover:bg-neutral-700 hover:border-neutral-500 transition-colors duration-200"
             >

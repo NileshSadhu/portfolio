@@ -12,11 +12,15 @@ import { BlogPost } from "./components/BlogPost";
 
 import { NotFound } from "./pages/NotFound";
 import { JavaScriptRequired } from "./pages/JavaScriptRequired";
+import { Experience } from "./components/Experience";
 
 const Home = () => (
   <>
     <section id="home">
       <Hero />
+    </section>
+    <section id="experience">
+      <Experience />
     </section>
     <section id="skills">
       <Skills />
