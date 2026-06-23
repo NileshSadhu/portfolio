@@ -17,7 +17,7 @@ const projects = [
       "Real-time chat application with Socket.IO, JWT auth, and MongoDB. Supports rooms, typing indicators. Its  let you connect with rbdom people around the globe.",
     tags: ["React", "tailwind", "NodeJS", "Express", "Socket.IO", "MongoDB"],
     github: "https://github.com/NileshSadhu/PeelTalk",
-    live: "https://www.peeltalk.live",
+    live: "https://www.peeltalk.space",
     featured: true,
   },
 ];
