@@ -4,15 +4,11 @@ const modules = import.meta.glob("../content/*.md", {
     import: "default",
 });
 
-console.log("glob keys:", Object.keys(modules));
-console.log("modules:", modules);
-
 const parseFrontmatter = (raw) => {
     const normalized = raw.replace(/\r\n/g, "\n").replace(/\r/g, "\n").trim();
 
     const match = normalized.match(/^---\n([\s\S]*?)\n---/);
     if (!match) {
-        console.log("NO MATCH — first 100 chars:", JSON.stringify(normalized.slice(0, 100)));
         return { data: {}, content: normalized };
     }
 

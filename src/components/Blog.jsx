@@ -72,7 +72,6 @@ export const Blog = () => {
 
   useEffect(() => {
     const p = getAllPosts();
-    console.log("posts:", p);
     setPosts(p);
   }, []);
 
