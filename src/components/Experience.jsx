@@ -14,7 +14,7 @@ const experiences = [
     ],
   },
   {
-    role: "Frontend Developer Intern",
+    role: "Fullstack Developer Intern",
     company: "Axentra OS (Altiss Advance) Pvt. Ltd.",
     period: "2024 – 2025",
     type: "Onsite · Mumbai",
