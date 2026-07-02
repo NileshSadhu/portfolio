@@ -20,6 +20,15 @@ const projects = [
     live: "https://www.peeltalk.space",
     featured: true,
   },
+  {
+    title: "Marketing Campaign Builder",
+    description:
+      "Full-stack internal marketing tool for creating email campaigns, auto-generating copy with Google Gemini, and setting up conditional customer journeys with trigger → action → branching logic.",
+    tags: ["React", "TypeScript", "Node.js", "MongoDB", "Gemini AI", "JWT"],
+    github: "https://github.com/NileshSadhu/onftv-sde-inter-assignement",
+    live: "https://onftv-sde-inter-assignement.vercel.app/",
+    featured: true,
+  },
 ];
 
 const ProjectCard = ({ project, index, visible }) => {
