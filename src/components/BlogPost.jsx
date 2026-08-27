@@ -66,7 +66,7 @@ export const BlogPost = () => {
 
         {/* Divider */}
         <div
-          className="h-px bg-neutral-800"
+          className="h-px bg-white"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "scaleX(1)" : "scaleX(0)",
@@ -163,7 +163,7 @@ export const BlogPost = () => {
               ),
               hr: ({ node, ...props }) => (
                 <hr
-                  className="border-none h-px bg-neutral-800 my-8"
+                  className="border-none h-px bg-white my-8"
                   {...props}
                 />
               ),

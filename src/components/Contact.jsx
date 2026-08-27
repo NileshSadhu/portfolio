@@ -83,7 +83,7 @@ export const Contact = () => {
         </a>
 
         <div
-          className="w-10 h-px bg-neutral-700 mx-auto mb-8"
+          className="w-10 h-px bg-white mx-auto mb-8"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "scaleX(1)" : "scaleX(0)",

@@ -93,7 +93,7 @@ export const Hero = () => {
 
           {/* Divider */}
           <div
-            className="h-px bg-neutral-800"
+            className="h-px bg-white"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "scaleX(1)" : "scaleX(0)",

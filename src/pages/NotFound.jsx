@@ -38,7 +38,7 @@ export const NotFound = () => {
         </p>
 
         <div
-          className="h-px w-10 bg-neutral-800"
+          className="h-px w-10 bg-white"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "scaleX(1)" : "scaleX(0)",

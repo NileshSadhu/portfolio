@@ -41,7 +41,7 @@ const Home = () => (
 function App() {
   return (
     <BrowserRouter>
-      <div className="bg-zinc-950 text-white">
+      <div className="min-h-screen text-white">
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

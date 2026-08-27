@@ -15,7 +15,7 @@ export const JavaScriptRequired = () => {
           enable it in your browser settings and refresh the page.
         </p>
 
-        <div className="h-px w-10 bg-neutral-800" />
+        <div className="h-px w-10 bg-white" />
 
         <p className="text-xs text-neutral-600">nileshsadhu.in</p>
       </div>
