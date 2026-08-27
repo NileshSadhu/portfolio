@@ -2,15 +2,14 @@ import { useEffect, useRef, useState } from "react";
 
 const experiences = [
   {
-    role: "Junior Software Developer Intern",
-    company: "Custom Technologies Design Lab Pvt. Ltd.",
-    period: "Apr 2024 – Sep 2024",
+    role: "Full Stack Developer",
+    company: "SAAR IT",
+    period: "Jul 2025 – Present",
     type: "Onsite · Mumbai",
     points: [
-      "Squashed 20+ gameplay bugs working closely with the dev team, making the app noticeably more stable.",
-      "Helped test and ship VR features for a smoother end-user experience.",
-      "Connected frontend to backend through RESTful APIs for reliable data flow.",
-      "Used Git/GitHub daily for version control and team collaboration.",
+      "Building and maintaining core features for the Human Resource Management System (HRMS).",
+      "Developing responsive UI components and integrating full-stack RESTful APIs for HR operations.",
+      "Collaborating on-site with the dev team to optimize workflows and system performance.",
     ],
   },
   {
@@ -24,6 +23,18 @@ const experiences = [
       "Shipped a Shopify Theme App Extension for custom navbar icons, with Shadow DOM and multi-theme support.",
       "Designed a 7-section Membership & Rewards portal with 4 API integrations.",
       "Automated cart-abandonment and wishlist emails for Shopify stores using Django.",
+    ],
+  },
+  {
+    role: "Junior Software Developer Intern",
+    company: "Custom Technologies Design Lab Pvt. Ltd.",
+    period: "Apr 2024 – Sep 2024",
+    type: "Onsite · Mumbai",
+    points: [
+      "Squashed 20+ gameplay bugs working closely with the dev team, making the app noticeably more stable.",
+      "Helped test and ship VR features for a smoother end-user experience.",
+      "Connected frontend to backend through RESTful APIs for reliable data flow.",
+      "Used Git/GitHub daily for version control and team collaboration.",
     ],
   },
 ];
@@ -94,7 +105,7 @@ const TimelineCard = ({ exp, index, visible, isLeft }) => {
             <p className="text-xs text-neutral-600 mt-0.5">{exp.type}</p>
           </div>
 
-          <div className="h-px bg-neutral-800" />
+          <div className="h-px bg-white" />
 
           <ul className={`flex flex-col gap-2 ${isLeft ? "sm:items-end" : ""}`}>
             {exp.points.map((point, j) => (
