@@ -106,10 +106,11 @@ export const IntroLoader = ({ onComplete }) => {
     <aside
       aria-label="Website Introduction"
       aria-live="polite"
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-between bg-black text-white px-6 py-10 select-none cursor-default"
+      className="intro-loader-screen fixed inset-0 z-[9999] flex flex-col items-center justify-between bg-black text-white px-6 py-10 select-none cursor-default"
       style={{
         transform: isExiting ? "translateY(-100%)" : "translateY(0)",
-        transition: "transform 800ms cubic-bezier(0.76, 0, 0.24, 1), opacity 800ms ease",
+        transition:
+          "transform 800ms cubic-bezier(0.76, 0, 0.24, 1), opacity 800ms ease, background-color 300ms ease, color 300ms ease",
         opacity: isExiting ? 0.95 : 1,
         willChange: "transform",
       }}
@@ -126,7 +127,7 @@ export const IntroLoader = ({ onComplete }) => {
 
         <button
           onClick={handleFinish}
-          className="text-xs text-neutral-400 hover:text-white px-3 py-1.5 rounded-full border border-neutral-800 hover:border-neutral-600 bg-neutral-900/50 hover:bg-neutral-800 transition-all duration-200 tracking-wide font-medium"
+          className="intro-skip-btn text-xs text-neutral-400 hover:text-white px-3 py-1.5 rounded-full border border-neutral-800 hover:border-neutral-600 bg-neutral-900/50 hover:bg-neutral-800 transition-all duration-200 tracking-wide font-medium"
         >
           Skip Intro
         </button>
@@ -145,10 +146,11 @@ export const IntroLoader = ({ onComplete }) => {
                 : "translateY(-12px) scale(0.98)",
             filter:
               fadeState === "in" && !isExiting ? "blur(0px)" : "blur(4px)",
-            transition: "opacity 300ms cubic-bezier(0.16, 1, 0.3, 1), transform 300ms cubic-bezier(0.16, 1, 0.3, 1), filter 300ms ease",
+            transition:
+              "opacity 300ms cubic-bezier(0.16, 1, 0.3, 1), transform 300ms cubic-bezier(0.16, 1, 0.3, 1), filter 300ms ease",
           }}
         >
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-tight text-neutral-100">
+          <h1 className="intro-text text-3xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-tight text-neutral-100">
             {current.text}
           </h1>
         </div>
@@ -162,16 +164,16 @@ export const IntroLoader = ({ onComplete }) => {
               key={item.code}
               className={`h-1.5 rounded-full transition-all duration-300 ${
                 i === index
-                  ? "w-8 bg-white"
+                  ? "intro-dot-active w-8 bg-white"
                   : i < index
-                  ? "w-2 bg-neutral-600"
-                  : "w-2 bg-neutral-800"
+                    ? "intro-dot-passed w-2 bg-neutral-600"
+                    : "intro-dot-future w-2 bg-neutral-800"
               }`}
               title={item.lang}
             />
           ))}
         </div>
-        <span className="text-[11px] text-neutral-600 font-mono tracking-widest">
+        <span className="intro-step-counter text-[11px] text-neutral-600 font-mono tracking-widest">
           {index + 1} / {GREETINGS.length}
         </span>
       </div>

@@ -1,10 +1,15 @@
 :root {
-  font-family: "Inter";
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
   padding: 0;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
 }
 
 body {
@@ -17,4 +22,163 @@ body {
   background-size: 78px 78px;
   color: #ffffff;
   min-height: 100vh;
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+/* ==========================================================================
+   Light Mode Global Styles & Tokens (DRY Global CSS)
+   ========================================================================== */
+
+[data-theme="light"] body {
+  background-color: #f8fafc;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  color: #0f172a;
+}
+
+/* Typography Overrides */
+[data-theme="light"] .text-white {
+  color: #09090b !important;
+}
+
+[data-theme="light"] .text-neutral-100,
+[data-theme="light"] .text-neutral-200 {
+  color: #18181b !important;
+}
+
+[data-theme="light"] .text-neutral-300 {
+  color: #27272a !important;
+}
+
+[data-theme="light"] .text-neutral-400 {
+  color: #52525b !important;
+}
+
+[data-theme="light"] .text-neutral-500 {
+  color: #71717a !important;
+}
+
+[data-theme="light"] .text-neutral-600 {
+  color: #a1a1aa !important;
+}
+
+/* Background Card & Component Overrides */
+[data-theme="light"] .bg-zinc-900,
+[data-theme="light"] .bg-zinc-950,
+[data-theme="light"] .bg-neutral-900 {
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .bg-neutral-800,
+[data-theme="light"] .bg-zinc-800 {
+  background-color: #f4f4f5 !important;
+}
+
+/* Border Overrides */
+[data-theme="light"] .border-neutral-800,
+[data-theme="light"] .border-neutral-700,
+[data-theme="light"] .border-zinc-700,
+[data-theme="light"] .border-zinc-800 {
+  border-color: #e4e4e7 !important;
+}
+
+[data-theme="light"] .border-neutral-600,
+[data-theme="light"] .border-neutral-500 {
+  border-color: #d4d4d8 !important;
+}
+
+/* Dividers & Lines */
+[data-theme="light"] .h-px.bg-white,
+[data-theme="light"] hr.bg-white,
+[data-theme="light"] .bg-white.h-px,
+[data-theme="light"] [class*="h-px"][class*="bg-white"] {
+  background-color: #09090b !important;
+}
+
+/* Interactive States & Hovers */
+[data-theme="light"] .hover\:bg-neutral-800:hover,
+[data-theme="light"] .hover\:bg-neutral-700:hover {
+  background-color: #e4e4e7 !important;
+}
+
+[data-theme="light"] .hover\:text-white:hover {
+  color: #09090b !important;
+}
+
+[data-theme="light"] .hover\:border-neutral-500:hover,
+[data-theme="light"] .hover\:border-neutral-400:hover,
+[data-theme="light"] .hover\:border-neutral-600:hover {
+  border-color: #a1a1aa !important;
+}
+
+/* Navbar glass in light mode */
+[data-theme="light"] .nav-glass-scrolled {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  border-color: #e4e4e7 !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-theme="light"] .nav-mobile-panel {
+  background-color: #ffffff !important;
+  border-color: #e4e4e7 !important;
+}
+
+/* Skill Chips in light mode */
+[data-theme="light"] .skill-chip {
+  background-color: #ffffff !important;
+  border-color: #e4e4e7 !important;
+  color: #52525b !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="light"] .skill-chip:hover {
+  background-color: #f4f4f5 !important;
+  color: #09090b !important;
+}
+
+/* Intro Loader in light mode */
+[data-theme="light"] .intro-loader-screen {
+  background-color: #f8fafc !important;
+  color: #09090b !important;
+}
+
+[data-theme="light"] .intro-loader-screen .intro-text {
+  color: #09090b !important;
+}
+
+[data-theme="light"] .intro-loader-screen .intro-skip-btn {
+  background-color: rgba(244, 244, 245, 0.8) !important;
+  border-color: #e4e4e7 !important;
+  color: #52525b !important;
+}
+
+[data-theme="light"] .intro-loader-screen .intro-skip-btn:hover {
+  background-color: #e4e4e7 !important;
+  color: #09090b !important;
+  border-color: #d4d4d8 !important;
+}
+
+[data-theme="light"] .intro-loader-screen .intro-dot-active {
+  background-color: #09090b !important;
+}
+
+[data-theme="light"] .intro-loader-screen .intro-dot-passed {
+  background-color: #a1a1aa !important;
+}
+
+[data-theme="light"] .intro-loader-screen .intro-dot-future {
+  background-color: #e4e4e7 !important;
+}
+
+[data-theme="light"] .intro-loader-screen .intro-step-counter {
+  color: #a1a1aa !important;
+}
+
+/* Smooth color transitions for interactive elements */
+body, button, a, div, span, nav, header, footer, article, section, p, h1, h2, h3, h4, h5, h6 {
+  transition-property: background-color, border-color, color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
 }

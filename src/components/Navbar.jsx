@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
+import { useTheme } from "../hooks/useTheme";
 
 const navItems = [
   { label: "Home", href: "home" },
@@ -15,6 +16,7 @@ export const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -82,18 +84,15 @@ export const Navbar = () => {
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 pt-5">
         <div
-          className="flex items-center gap-1 px-2 py-2 rounded-2xl border transition-all duration-500 w-full sm:w-auto justify-between sm:justify-start"
+          className={`flex items-center gap-1 px-2 py-2 rounded-2xl border transition-all duration-500 w-full sm:w-auto justify-between sm:justify-start ${
+            scrolled || mobileOpen
+              ? "nav-glass-scrolled"
+              : "border-transparent bg-transparent"
+          }`}
           style={{
-            borderColor: scrolled || mobileOpen ? "#3f3f46" : "transparent",
-            backgroundColor:
-              scrolled || mobileOpen ? "rgba(9,9,11,0.85)" : "transparent",
             backdropFilter: scrolled || mobileOpen ? "blur(12px)" : "none",
             WebkitBackdropFilter:
               scrolled || mobileOpen ? "blur(12px)" : "none",
-            boxShadow:
-              scrolled || mobileOpen
-                ? "0 0 0 1px rgba(255,255,255,0.04) inset"
-                : "none",
           }}
         >
           {/* Desktop nav items */}
@@ -104,12 +103,11 @@ export const Navbar = () => {
                 <button
                   key={label}
                   onClick={() => handleClick({ label, href })}
-                  className="relative px-4 py-1.5 text-sm rounded-xl transition-colors duration-200"
-                  style={{
-                    color: isActive ? "#ffffff" : "#71717a",
-                    backgroundColor: isActive ? "#27272a" : "transparent",
-                    fontWeight: isActive ? 500 : 400,
-                  }}
+                  className={`relative px-4 py-1.5 text-sm rounded-xl transition-all duration-200 ${
+                    isActive
+                      ? "bg-neutral-800 text-white font-medium"
+                      : "text-neutral-400 hover:text-white bg-transparent"
+                  }`}
                 >
                   {label}
                   {isActive && (
@@ -118,25 +116,49 @@ export const Navbar = () => {
                 </button>
               );
             })}
-          </div>
 
-          {/* Mobile: current label + hamburger */}
-          <div className="flex sm:hidden items-center justify-between w-full px-2">
-            <span className="text-sm font-medium text-white">{active}</span>
+            {/* Theme Toggle Desktop */}
             <button
-              onClick={() => setMobileOpen((o) => !o)}
-              className="flex items-center justify-center h-8 w-8 rounded-lg text-neutral-400 hover:text-white transition-colors duration-200"
-              aria-label="Toggle menu"
+              onClick={toggleTheme}
+              className="flex items-center justify-center h-8 w-8 ml-1 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all duration-200"
+              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              aria-label="Toggle theme"
             >
-              <div
-                style={{
-                  transition: "transform 200ms ease, opacity 200ms ease",
-                  transform: mobileOpen ? "rotate(90deg)" : "rotate(0deg)",
-                }}
-              >
-                {mobileOpen ? <FiX size={18} /> : <FiMenu size={18} />}
+              <div className="transition-transform duration-300 transform hover:rotate-12">
+                {isDark ? <FiSun size={15} /> : <FiMoon size={15} />}
               </div>
             </button>
+          </div>
+
+          {/* Mobile: current label + theme toggle + hamburger */}
+          <div className="flex sm:hidden items-center justify-between w-full px-2">
+            <span className="text-sm font-medium text-white">{active}</span>
+
+            <div className="flex items-center gap-1">
+              <button
+                onClick={toggleTheme}
+                className="flex items-center justify-center h-8 w-8 rounded-lg text-neutral-400 hover:text-white transition-colors duration-200"
+                aria-label="Toggle theme"
+                title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              >
+                {isDark ? <FiSun size={16} /> : <FiMoon size={16} />}
+              </button>
+
+              <button
+                onClick={() => setMobileOpen((o) => !o)}
+                className="flex items-center justify-center h-8 w-8 rounded-lg text-neutral-400 hover:text-white transition-colors duration-200"
+                aria-label="Toggle menu"
+              >
+                <div
+                  style={{
+                    transition: "transform 200ms ease, opacity 200ms ease",
+                    transform: mobileOpen ? "rotate(90deg)" : "rotate(0deg)",
+                  }}
+                >
+                  {mobileOpen ? <FiX size={18} /> : <FiMenu size={18} />}
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -158,7 +180,7 @@ export const Navbar = () => {
 
         {/* panel */}
         <div
-          className="absolute top-20 left-4 right-4 rounded-2xl border border-neutral-700 bg-zinc-900 overflow-hidden shadow-2xl"
+          className="nav-mobile-panel absolute top-20 left-4 right-4 rounded-2xl border border-neutral-700 bg-zinc-900 overflow-hidden shadow-2xl"
           style={{
             opacity: mobileOpen ? 1 : 0,
             transform: mobileOpen
@@ -174,10 +196,12 @@ export const Navbar = () => {
               <button
                 key={label}
                 onClick={() => handleClick({ label, href })}
-                className="w-full flex items-center justify-between px-5 py-3.5 text-left border-b border-neutral-800 last:border-b-0 transition-colors duration-150"
+                className={`w-full flex items-center justify-between px-5 py-3.5 text-left border-b border-neutral-800 last:border-b-0 transition-colors duration-150 ${
+                  isActive
+                    ? "text-white bg-neutral-800"
+                    : "text-neutral-400 hover:text-white bg-transparent"
+                }`}
                 style={{
-                  color: isActive ? "#ffffff" : "#a1a1aa",
-                  backgroundColor: isActive ? "#27272a" : "transparent",
                   opacity: mobileOpen ? 1 : 0,
                   transform: mobileOpen ? "translateX(0)" : "translateX(-8px)",
                   transition: `opacity 300ms ease ${i * 40}ms, transform 300ms ease ${i * 40}ms, background-color 150ms ease`,

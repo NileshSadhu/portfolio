@@ -29,10 +29,7 @@ const PostCard = ({ post, index, visible }) => {
       </div>
 
       <div>
-        <h3
-          className="font-medium text-base mb-2 transition-colors duration-200"
-          style={{ color: hovered ? "#fff" : "#e4e4e7" }}
-        >
+        <h3 className="font-medium text-base mb-2 text-white transition-colors duration-200">
           {post.title}
         </h3>
         <p className="text-neutral-400 text-sm leading-relaxed">

@@ -73,13 +73,7 @@ const ProjectCard = ({ project, index, visible }) => {
         ))}
       </div>
 
-      <div
-        className="flex items-center gap-3 pt-3 border-t border-neutral-800"
-        style={{
-          borderColor: hovered ? "#3f3f46" : "#27272a",
-          transition: "border-color 300ms ease",
-        }}
-      >
+      <div className="flex items-center gap-3 pt-3 border-t border-neutral-800 transition-colors duration-300">
         <a
           href={project.github}
           className="flex items-center gap-1.5 text-xs text-neutral-500 hover:text-white transition-colors duration-200"

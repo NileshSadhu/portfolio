@@ -85,16 +85,18 @@ const TimelineCard = ({ exp, index, visible, isLeft }) => {
         <div
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
-          className={`flex flex-col gap-3 p-4 rounded-2xl border bg-zinc-900 transition-all duration-300 ${isLeft ? "sm:text-right" : ""}`}
+          className={`flex flex-col gap-3 p-4 rounded-2xl border border-neutral-800 hover:border-neutral-600 bg-zinc-900 transition-all duration-300 ${isLeft ? "sm:text-right" : ""}`}
           style={{
-            borderColor: hovered ? "#52525b" : "#27272a",
             transform: hovered ? "translateY(-2px)" : "translateY(0)",
-            boxShadow: hovered ? "0 8px 24px -8px rgba(0,0,0,0.5)" : "none",
+            boxShadow: hovered ? "0 8px 24px -8px rgba(0,0,0,0.15)" : "none",
           }}
         >
           <span
-            className="text-xs text-neutral-500 bg-neutral-800 border border-neutral-700 rounded-lg px-2.5 py-1 w-fit sm:ml-auto transition-colors duration-300"
-            style={{ color: hovered ? "#d4d4d8" : "#a1a1aa" }}
+            className={`text-xs border rounded-lg px-2.5 py-1 w-fit sm:ml-auto transition-colors duration-300 ${
+              hovered
+                ? "bg-neutral-700 text-white border-neutral-600"
+                : "bg-neutral-800 text-neutral-400 border-neutral-700"
+            }`}
           >
             {exp.period}
           </span>

@@ -23,17 +23,17 @@ const skills = [
   { label: "TypeScript", icon: <SiTypescript />, color: "#3178C6" },
   { label: "React", icon: <FaReact />, color: "#61DAFB" },
   { label: "Tailwind", icon: <SiTailwindcss />, color: "#38BDF8" },
-  { label: "NextJS", icon: <SiNextdotjs />, color: "#ffffff" },
+  { label: "NextJS", icon: <SiNextdotjs />, color: "currentColor" },
   { label: "NodeJS", icon: <FaNodeJs />, color: "#68A063" },
-  { label: "Express", icon: <SiExpress />, color: "#ffffff" },
-  { label: "Prisma", icon: <SiPrisma />, color: "#ffffff" },
+  { label: "Express", icon: <SiExpress />, color: "currentColor" },
+  { label: "Prisma", icon: <SiPrisma />, color: "currentColor" },
   { label: "MongoDB", icon: <SiMongodb />, color: "#4DB33D" },
   { label: "PostgreSQL", icon: <SiPostgresql />, color: "#336791" },
   { label: "Vitest", icon: <SiVitest />, color: "#A259FF" },
   { label: "Docker", icon: <FaDocker />, color: "#2496ED" },
   { label: "Redis", icon: <SiRedis />, color: "#FF4438" },
   { label: "Git", icon: <FaGitAlt />, color: "#F05032" },
-  { label: "Socket.IO", icon: <SiSocketdotio />, color: "#ffffff" },
+  { label: "Socket.IO", icon: <SiSocketdotio />, color: "currentColor" },
 ];
 
 const Chip = ({ label, icon, color, index, visible }) => {
@@ -43,20 +43,14 @@ const Chip = ({ label, icon, color, index, visible }) => {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      className="skill-chip border border-neutral-800 bg-zinc-900 text-neutral-400 hover:text-white rounded-xl px-4 py-2 flex items-center gap-2 text-sm font-medium cursor-default select-none transition-all duration-200"
       style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 8,
-        padding: "8px 16px",
-        borderRadius: 12,
-        border: `1px solid ${hovered ? color + "55" : "#3f3f46"}`,
-        backgroundColor: hovered ? "#1c1c1e" : "#09090b",
-        color: hovered ? "#fff" : "#a1a1aa",
-        fontSize: 14,
-        fontWeight: 500,
-        cursor: "default",
-        userSelect: "none",
-        boxShadow: hovered ? `0 0 16px 2px ${color}25` : "none",
+        borderColor:
+          hovered && color !== "currentColor" ? color + "55" : undefined,
+        boxShadow:
+          hovered && color !== "currentColor"
+            ? `0 0 16px 2px ${color}25`
+            : undefined,
         opacity: visible ? 1 : 0,
         transform: visible
           ? "translateY(0) scale(1)"
@@ -64,10 +58,6 @@ const Chip = ({ label, icon, color, index, visible }) => {
         transition: [
           `opacity 500ms cubic-bezier(0.22, 1, 0.36, 1) ${index * 45}ms`,
           `transform 500ms cubic-bezier(0.22, 1, 0.36, 1) ${index * 45}ms`,
-          "border-color 200ms ease",
-          "box-shadow 200ms ease",
-          "color 200ms ease",
-          "background-color 200ms ease",
         ].join(", "),
       }}
     >
@@ -80,7 +70,10 @@ const Chip = ({ label, icon, color, index, visible }) => {
           transform: hovered
             ? "rotate(12deg) scale(1.25)"
             : "rotate(0deg) scale(1)",
-          filter: hovered ? `drop-shadow(0 0 5px ${color}bb)` : "none",
+          filter:
+            hovered && color !== "currentColor"
+              ? `drop-shadow(0 0 5px ${color}bb)`
+              : "none",
           transition:
             "transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), filter 200ms ease",
         }}
