@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
@@ -9,9 +10,9 @@ import { Blog } from "./components/Blog";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { BlogPost } from "./components/BlogPost";
+import { IntroLoader } from "./components/IntroLoader";
 
 import { NotFound } from "./pages/NotFound";
-import { JavaScriptRequired } from "./pages/JavaScriptRequired";
 import { Experience } from "./components/Experience";
 
 const Home = () => (
@@ -39,8 +40,11 @@ const Home = () => (
 );
 
 function App() {
+  const [showIntro, setShowIntro] = useState(true);
+
   return (
     <BrowserRouter>
+      {showIntro && <IntroLoader onComplete={() => setShowIntro(false)} />}
       <div className="min-h-screen text-white">
         <Navbar />
         <Routes>
