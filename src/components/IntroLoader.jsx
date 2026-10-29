@@ -7,30 +7,30 @@ const GREETINGS = [
     text: "Hello, I'm Nilesh Sadhu",
     fontFamily: "Inter, sans-serif",
   },
-  {
-    code: "HI",
-    lang: "Hindi",
-    text: "नमस्ते, मैं नीलेश साधु हूँ",
-    fontFamily: "'Noto Sans Devanagari', 'Inter', sans-serif",
-  },
-  {
-    code: "MR",
-    lang: "Marathi",
-    text: "नमस्कार, मी नीलेश साधू",
-    fontFamily: "'Noto Sans Devanagari', 'Inter', sans-serif",
-  },
-  {
-    code: "GU",
-    lang: "Gujarati",
-    text: "નમસ્તે, હું નીલેશ સાધુ છું",
-    fontFamily: "'Noto Sans Gujarati', 'Inter', sans-serif",
-  },
-  {
-    code: "TE",
-    lang: "Telugu",
-    text: "నమస్కారం, నేను నీలేష్ సాధు",
-    fontFamily: "'Noto Sans Telugu', 'Inter', sans-serif",
-  },
+  // {
+  //   code: "HI",
+  //   lang: "Hindi",
+  //   text: "नमस्ते, मैं नीलेश साधु हूँ",
+  //   fontFamily: "'Noto Sans Devanagari', 'Inter', sans-serif",
+  // },
+  // {
+  //   code: "MR",
+  //   lang: "Marathi",
+  //   text: "नमस्कार, मी नीलेश साधू",
+  //   fontFamily: "'Noto Sans Devanagari', 'Inter', sans-serif",
+  // },
+  // {
+  //   code: "GU",
+  //   lang: "Gujarati",
+  //   text: "નમસ્તે, હું નીલેશ સાધુ છું",
+  //   fontFamily: "'Noto Sans Gujarati', 'Inter', sans-serif",
+  // },
+  // {
+  //   code: "TE",
+  //   lang: "Telugu",
+  //   text: "నమస్కారం, నేను నీలేష్ సాధు",
+  //   fontFamily: "'Noto Sans Telugu', 'Inter', sans-serif",
+  // },
 ];
 
 const STEP_DURATION = 2000; // 2 seconds per language
