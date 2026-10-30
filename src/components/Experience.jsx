@@ -6,6 +6,7 @@ const experiences = [
     company: "SAAR IT",
     period: "Jul 2026 – Present",
     type: "Onsite · Mumbai",
+    accent: "#8b5cf6",
     points: [
       "Architected SAAR One, an end-to-end HRMS for 300+ employees across 11 departments, delivering 14+ modules including attendance, payroll, recruitment, employee records, leave, approvals, notifications, and reporting.",
       "Contributed to Treelogy, a BMC tree-survey system managing 1,000+ tree records, with geolocation-based data capture, tree photo upload, species identification, and multi-level approvals that digitized field verification.",
@@ -18,6 +19,7 @@ const experiences = [
     company: "Axentra OS (Altiss Advance) Pvt. Ltd.",
     period: "Mar 2026 – Jun 2026",
     type: "Onsite · Mumbai",
+    accent: "#22c55e",
     points: [
       "Engineered 25 reusable React.js and TypeScript components and a 12-page merchant dashboard integrating 22 APIs for a Warranty Management platform, with analytics on performance, profitability, claims, and operations.",
       "Integrated 9 Ekart Logistics APIs covering order creation, shipment tracking, shipping cost, serviceability, reverse and exchange orders, and webhook-driven status updates, with fallback handling and testing alongside the Ekart team.",
@@ -30,6 +32,7 @@ const experiences = [
     company: "Custom Technologies Design Lab Pvt. Ltd.",
     period: "Apr 2024 – Jun 2024",
     type: "Onsite · Mumbai",
+    accent: "#f59e0b",
     points: [
       "Fixed 20+ gameplay bugs in a VR application over 3 months, tracked through the team’s issue tracker.",
       "Tested multiple VR features and supported their integration into the application.",
@@ -39,109 +42,107 @@ const experiences = [
   },
 ];
 
-const TimelineCard = ({ exp, index, visible, isLeft }) => {
-  const [hovered, setHovered] = useState(false);
+const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+const ExperienceCard = ({ exp, index, scrollProgress, visible }) => {
+  const stage = scrollProgress * (experiences.length - 1);
+  const activeIndex = Math.min(Math.floor(stage), experiences.length - 1);
+  const transitionProgress = stage - activeIndex;
+  const isIncoming = index > activeIndex;
+  const isActive = index === activeIndex;
+  const distanceFromActive = index - activeIndex;
+  const cardY = isIncoming
+    ? `calc(${(distanceFromActive - transitionProgress) * 100}% + ${(distanceFromActive - 1) * 14}px)`
+    : isActive
+      ? `${-transitionProgress * 14}px`
+      : `${-(activeIndex - index) * 14 - transitionProgress * 14}px`;
+  const cardZ = isIncoming
+    ? -120 * (1 - transitionProgress)
+    : isActive
+      ? -24 * transitionProgress
+      : -(activeIndex - index) * 28;
+  const rotateX = isIncoming ? 8 * (1 - transitionProgress) : 0;
+  const scale = isIncoming
+    ? 1 - (distanceFromActive - 1) * 0.025 - (1 - transitionProgress) * 0.035
+    : 1 - (activeIndex - index) * 0.025 - (isActive ? transitionProgress * 0.025 : 0);
 
   return (
-    <div className="relative grid sm:grid-cols-2 gap-6 sm:gap-10">
-      {/* Dot */}
-      <div
-        className="absolute left-4 sm:left-1/2 top-1.5 -translate-x-1/2 z-10"
-        style={{
-          opacity: visible ? 1 : 0,
-          transform: visible
-            ? "translateX(-50%) scale(1)"
-            : "translateX(-50%) scale(0)",
-          transition: `opacity 400ms ease ${200 + index * 150}ms, transform 400ms cubic-bezier(0.34,1.56,0.64,1) ${200 + index * 150}ms`,
-        }}
-      >
-        <span className="relative flex h-3 w-3 items-center justify-center">
-          {/* pulse ring */}
-          <span
-            className="absolute h-3 w-3 rounded-full bg-neutral-500"
-            style={{
-              animation: visible
-                ? "pulseRing 2.4s cubic-bezier(0.22,1,0.36,1) infinite"
-                : "none",
-              animationDelay: `${1000 + index * 300}ms`,
-            }}
-          />
-          <span
-            className="relative block h-3 w-3 rounded-full bg-zinc-950 border-2 transition-colors duration-300"
-            style={{ borderColor: hovered ? "#a1a1aa" : "#737373" }}
-          />
-        </span>
+    <article
+      className="experience-stack-card absolute inset-x-0 overflow-hidden rounded-[30px] border p-5 backdrop-blur-sm sm:p-7"
+      style={{
+        top: 0,
+        transform: `perspective(1200px) translate3d(0, ${cardY}, ${cardZ}px) rotateX(${rotateX}deg) scale(${scale})`,
+        opacity: visible ? 1 : 0,
+        zIndex: isIncoming
+          ? experiences.length + activeIndex + 1 - (index - activeIndex - 1) * 2
+          : experiences.length - (activeIndex - index),
+        background: `linear-gradient(135deg, ${exp.accent}14 0%, rgba(24, 24, 27, 0.97) 38%, rgba(9, 9, 11, 0.99) 100%)`,
+        boxShadow: `0 30px 80px -30px ${exp.accent}55`,
+        borderColor: `${exp.accent}66`,
+      }}
+    >
+      <div className="experience-card-glow absolute inset-0 opacity-80" aria-hidden="true">
+        <div
+          className="absolute -right-10 -top-10 h-28 w-28 rounded-full blur-3xl"
+          style={{ backgroundColor: `${exp.accent}40` }}
+        />
       </div>
 
-      {/* Card */}
-      <div
-        className={`pl-10 sm:pl-0 ${isLeft ? "sm:col-start-1" : "sm:col-start-2"}`}
-        style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(20px)",
-          transition: `opacity 600ms cubic-bezier(0.22,1,0.36,1) ${250 + index * 150}ms, transform 600ms cubic-bezier(0.22,1,0.36,1) ${250 + index * 150}ms`,
-        }}
-      >
-        <div
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          className={`flex flex-col gap-3 p-4 rounded-2xl border border-neutral-800 hover:border-neutral-600 bg-zinc-900 transition-all duration-300 ${isLeft ? "sm:text-right" : ""}`}
-          style={{
-            transform: hovered ? "translateY(-2px)" : "translateY(0)",
-            boxShadow: hovered ? "0 8px 24px -8px rgba(0,0,0,0.15)" : "none",
-          }}
-        >
+      <div className="relative">
+        <div className="flex items-center justify-between gap-3">
           <span
-            className={`text-xs border rounded-lg px-2.5 py-1 w-fit sm:ml-auto transition-colors duration-300 ${
-              hovered
-                ? "bg-neutral-700 text-white border-neutral-600"
-                : "bg-neutral-800 text-neutral-400 border-neutral-700"
-            }`}
+            className="inline-flex items-center rounded-full border px-2.5 py-1 text-[9px] font-medium uppercase tracking-[0.24em]"
+            style={{
+              borderColor: `${exp.accent}80`,
+              backgroundColor: `${exp.accent}1a`,
+              color: exp.accent,
+            }}
           >
             {exp.period}
           </span>
-
-          <div>
-            <h3 className="text-white font-medium text-sm">{exp.role}</h3>
-            <p className="text-xs text-neutral-400 mt-0.5">{exp.company}</p>
-            <p className="text-xs text-neutral-600 mt-0.5">{exp.type}</p>
-          </div>
-
-          <div className="h-px bg-white" />
-
-          <ul className={`flex flex-col gap-2 ${isLeft ? "sm:items-end" : ""}`}>
-            {exp.points.map((point, j) => (
-              <li
-                key={j}
-                className={`flex gap-2 text-xs text-neutral-400 leading-relaxed text-left ${isLeft ? "sm:flex-row-reverse" : ""}`}
-                style={{
-                  opacity: visible ? 1 : 0,
-                  transform: visible
-                    ? "translateX(0)"
-                    : isLeft
-                      ? "translateX(8px)"
-                      : "translateX(-8px)",
-                  transition: `opacity 400ms ease ${400 + index * 150 + j * 60}ms, transform 400ms ease ${400 + index * 150 + j * 60}ms`,
-                }}
-              >
-                <span className="mt-1 h-1 w-1 shrink-0 rounded-full bg-neutral-600" />
-                {point}
-              </li>
-            ))}
-          </ul>
+          <span className="experience-meta text-[10px] uppercase tracking-[0.24em] text-zinc-500">
+            {exp.type}
+          </span>
         </div>
-      </div>
 
-      <div
-        className={`hidden sm:block ${isLeft ? "sm:col-start-2" : "sm:col-start-1 sm:row-start-1"}`}
-      />
-    </div>
+        <div className="mt-5 flex items-start justify-between gap-4">
+          <div>
+            <h3 className="experience-role text-2xl font-medium text-white">{exp.role}</h3>
+            <p className="experience-company mt-2 text-sm text-zinc-400">{exp.company}</p>
+          </div>
+          <span
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10"
+            style={{ backgroundColor: `${exp.accent}20`, boxShadow: `0 0 30px -12px ${exp.accent}` }}
+          >
+            <span className="h-3 w-3 rounded-full" style={{ backgroundColor: exp.accent }} />
+          </span>
+        </div>
+
+        <div
+          className="mt-6 h-px w-full"
+          style={{ background: `linear-gradient(90deg, ${exp.accent} 0%, rgba(255,255,255,0.22) 55%, transparent 100%)` }}
+        />
+
+        <ul className="experience-points mt-6 space-y-3 text-sm leading-relaxed text-zinc-300">
+          {exp.points.map((point, j) => (
+            <li key={j} className="flex gap-3">
+              <span
+                className="mt-2 inline-block h-2 w-2 shrink-0 rounded-full"
+                style={{ backgroundColor: exp.accent }}
+              />
+              <span className="experience-point">{point}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
   );
 };
 
 export const Experience = () => {
   const [visible, setVisible] = useState(false);
   const [headerVisible, setHeaderVisible] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -149,67 +150,76 @@ export const Experience = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setHeaderVisible(true);
-          setTimeout(() => setVisible(true), 200);
         }
       },
-      { threshold: 0.1 },
+      { threshold: 0.2 },
     );
+
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const updateScrollProgress = () => {
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const rect = section.getBoundingClientRect();
+      const totalScrollable = Math.max(1, section.offsetHeight - window.innerHeight);
+      const progress = clamp((-rect.top) / totalScrollable, 0, 1);
+      setScrollProgress(progress);
+      setVisible(rect.top < window.innerHeight && rect.bottom > 0);
+    };
+
+    updateScrollProgress();
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+    window.addEventListener("resize", updateScrollProgress);
+
+    return () => {
+      window.removeEventListener("scroll", updateScrollProgress);
+      window.removeEventListener("resize", updateScrollProgress);
+    };
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="flex flex-col items-center justify-center min-h-screen px-6 py-24 gap-16"
+      className="experience-section relative"
+      style={{ minHeight: `${100 + (experiences.length - 1) * 70}vh` }}
     >
-      <div
-        className="text-center"
-        style={{
-          opacity: headerVisible ? 1 : 0,
-          transform: headerVisible ? "translateY(0)" : "translateY(16px)",
-          transition:
-            "opacity 700ms cubic-bezier(0.22,1,0.36,1), transform 700ms cubic-bezier(0.22,1,0.36,1)",
-        }}
-      >
-        <p className="text-xs tracking-widest uppercase text-neutral-500 mb-3">
-          Where I've worked
-        </p>
-        <h2 className="text-4xl font-medium text-white leading-tight">
-          Experience.
-        </h2>
-      </div>
+      <div className="sticky top-0 flex min-h-screen flex-col justify-center px-4 py-10 sm:px-6 lg:px-8">
+        <div className="mx-auto w-[80%]">
+          <div
+            className="mb-12 text-center"
+            style={{
+              opacity: headerVisible ? 1 : 0,
+              transform: headerVisible ? "translateY(0)" : "translateY(18px)",
+              transition: "opacity 700ms ease, transform 700ms ease",
+            }}
+          >
+            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.35em] text-zinc-500">
+              Where I&apos;ve worked
+            </p>
+            <h2 className="text-4xl font-medium tracking-tight text-white sm:text-5xl">
+              Experience.
+            </h2>
+          </div>
 
-      <div className="relative w-full max-w-2xl">
-        <div
-          className="absolute left-4 sm:left-1/2 top-0 bottom-0 w-px bg-neutral-800 sm:-translate-x-1/2"
-          style={{
-            transform: visible ? "scaleY(1)" : "scaleY(0)",
-            transformOrigin: "top",
-            transition: "transform 900ms cubic-bezier(0.22,1,0.36,1)",
-          }}
-        />
-
-        <div className="flex flex-col gap-10">
-          {experiences.map((exp, i) => (
-            <TimelineCard
-              key={i}
-              exp={exp}
-              index={i}
-              visible={visible}
-              isLeft={i % 2 === 0}
-            />
-          ))}
+          <div className="relative h-[min(68vh,620px)] min-h-[500px] sm:min-h-[560px]">
+            <div className="relative mx-auto h-full w-full">
+              {experiences.map((exp, index) => (
+                <ExperienceCard
+                  key={index}
+                  exp={exp}
+                  index={index}
+                  scrollProgress={scrollProgress}
+                  visible={visible}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes pulseRing {
-          0%   { transform: scale(1);   opacity: 0.6; }
-          70%  { transform: scale(2.4); opacity: 0; }
-          100% { transform: scale(2.4); opacity: 0; }
-        }
-      `}</style>
     </section>
   );
 };

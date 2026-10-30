@@ -71,6 +71,31 @@ body {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
 }
 
+[data-theme="light"] .experience-section {
+  background: linear-gradient(180deg, rgba(248,250,252,0.88), rgba(255,255,255,0.75));
+}
+
+[data-theme="light"] .experience-stack-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 58%, #ffffff 100%) !important;
+  border-color: rgba(148, 163, 184, 0.48) !important;
+  box-shadow: 0 30px 80px -30px rgba(15, 23, 42, 0.24) !important;
+}
+
+[data-theme="light"] .experience-stack-card .experience-card-glow {
+  opacity: 0.16;
+}
+
+[data-theme="light"] .experience-stack-card .experience-role {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .experience-stack-card .experience-company,
+[data-theme="light"] .experience-stack-card .experience-meta,
+[data-theme="light"] .experience-stack-card .experience-points,
+[data-theme="light"] .experience-stack-card .experience-point {
+  color: #475569 !important;
+}
+
 [data-theme="light"] .bg-neutral-800,
 [data-theme="light"] .bg-zinc-800 {
   background-color: #f4f4f5 !important;
